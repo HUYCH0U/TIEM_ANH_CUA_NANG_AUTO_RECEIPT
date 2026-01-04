@@ -1,3 +1,5 @@
+window.onload = updateUI;
+
 function updateUI() {
     const pkg = document.getElementById('package');
     const groupContainer = document.getElementById('group-qty-container');
@@ -20,14 +22,26 @@ function generateMakeupInputs() {
     container.innerHTML = '';
     for (let i = 1; i <= count; i++) {
         container.innerHTML += `
-            <label> Makeup Khách ${i}:</label>
-            <select class="makeup-item">
+            <label>Makeup Khách ${i}:</label>
+            <select class="makeup-item" onchange="toggleMakeupTimeField()">
                 <option value="0" data-name="Không">Không Makeup</option>
                 <option value="250000" data-name="Cơ bản">Makeup cơ bản (250k)</option>
                 <option value="300000" data-name="Chuyên nghiệp">Makeup chuyên nghiệp (300k)</option>
             </select>
         `;
     }
+    toggleMakeupTimeField();
+}
+
+function toggleMakeupTimeField() {
+    const makeupSelects = document.querySelectorAll('.makeup-item');
+    const makeupTimeInputGroup = document.getElementById('makeup-time-input-group');
+    let hasMakeup = false;
+    makeupSelects.forEach(select => {
+        if (parseInt(select.value) > 0) hasMakeup = true;
+    });
+    makeupTimeInputGroup.style.display = hasMakeup ? 'block' : 'none';
+    if (!hasMakeup) document.getElementById('makeup-time').value = "";
 }
 
 function formatCurrency(amount) {
@@ -38,43 +52,59 @@ function generateInvoice() {
     const pkg = document.getElementById('package');
     const travel = document.getElementById('travel');
     const location = document.getElementById('location').value || "Chưa xác định";
-    const datetime = document.getElementById('datetime').value;
-    const groupQty = parseInt(document.getElementById('group-qty').value);
+    const date = document.getElementById('date').value;
+    const mTime = document.getElementById('makeup-time').value;
+    const sTime = document.getElementById('shoot-time').value;
+    const deposit = document.getElementById('deposit').value || 0;
+    const groupQty = parseInt(document.getElementById('group-qty').value) || 3;
 
     let pkgPrice = parseInt(pkg.value);
     let pkgName = pkg.options[pkg.selectedIndex].getAttribute('data-name');
     if (pkg.value === "360000") {
         pkgPrice = pkgPrice * groupQty;
-        pkgName = `Nhóm (${groupQty} người / chỉnh sửa 6 ảnh mỗi người)`;
+        pkgName = `Nhóm (${groupQty} người)`;
     }
 
     let totalMakeupPrice = 0;
     let makeupDetails = [];
-    const makeupSelects = document.querySelectorAll('.makeup-item');
-    makeupSelects.forEach((select, index) => {
+    document.querySelectorAll('.makeup-item').forEach((select, index) => {
         totalMakeupPrice += parseInt(select.value);
         let mName = select.options[select.selectedIndex].getAttribute('data-name');
-        if (mName !== "Không") {
-            makeupDetails.push(`Khách ${index + 1}: ${mName}`);
-        }
+        if (mName !== "Không") makeupDetails.push(`K${index + 1}: ${mName}`);
     });
-
-    let travelPrice = parseInt(travel.value);
 
     document.getElementById('res-package').innerText = pkgName;
     document.getElementById('res-makeup').innerText = makeupDetails.length > 0 ? makeupDetails.join(' | ') : "Không";
     document.getElementById('res-travel').innerText = travel.options[travel.selectedIndex].getAttribute('data-name');
     document.getElementById('res-location').innerText = location;
-
     document.getElementById('res-package-price').innerHTML = formatCurrency(pkgPrice);
-    document.getElementById('res-makeup-price').innerHTML = totalMakeupPrice > 0 ? formatCurrency(totalMakeupPrice) : formatCurrency(0);
-    document.getElementById('res-travel-price').innerHTML = formatCurrency(travelPrice);
-
-    let dateObj = new Date(datetime);
-    document.getElementById('res-datetime').innerText = datetime ? dateObj.toLocaleString('vi-VN') : "Chưa chọn";
+    document.getElementById('res-makeup-price').innerHTML = formatCurrency(totalMakeupPrice);
+    document.getElementById('res-travel-price').innerHTML = formatCurrency(parseInt(travel.value));
+    document.getElementById('res-date').innerText = date ? date.split('-').reverse().join('/') : "Chưa chọn";
+    document.getElementById('res-shoot-time').innerText = sTime || "Chưa chọn";
+    document.getElementById('res-deposit').innerHTML = formatCurrency(parseInt(deposit));
     
-    const total = pkgPrice + totalMakeupPrice + travelPrice;
+    const mRow = document.getElementById('res-makeup-time-row');
+    if (mTime) {
+        mRow.style.display = 'flex';
+        document.getElementById('res-makeup-time').innerText = mTime;
+    } else {
+        mRow.style.display = 'none';
+    }
+
+    const total = pkgPrice + totalMakeupPrice + parseInt(travel.value);
     document.getElementById('res-total').innerText = total.toLocaleString('vi-VN');
+
+    const qrImg = document.getElementById('res-qr');
+    const qrText = document.getElementById('qr-text');
+    if (parseInt(deposit) > 0) {
+        qrImg.src = `https://img.vietqr.io/image/MB-0901341018-qr_only.png?amount=${deposit}&addInfo=Coc%20chup%20hinh%20nangfotone`; 
+        qrImg.style.display = 'block';
+        if(qrText) qrText.style.display = 'block';
+    } else {
+        qrImg.style.display = 'none';
+        if(qrText) qrText.style.display = 'none';
+    }
 
     document.getElementById('download-btn').style.display = "block";
     document.getElementById('invoice-card').scrollIntoView({ behavior: 'smooth' });
@@ -93,5 +123,3 @@ function downloadImg() {
         link.click();
     });
 }
-
-window.onload = updateUI;
