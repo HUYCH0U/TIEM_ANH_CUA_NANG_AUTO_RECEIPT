@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Hóa Đơn - nangfotone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <div class="form-section">
+        <h2 >TẠO HÓA ĐƠN</h2>
+        
+        <label> Gói dịch vụ:</label>
+        <select id="package" onchange="updateUI()">
+            <option value="300000" data-count="1" data-name="Không chỉnh ảnh chỉ chụp">Không chỉnh ảnh chỉ chụp (300k)</option>
+            <option value="500000" data-count="1" data-name="Cá nhân (1 người / chỉnh sửa 10 ảnh)">Cá nhân - 1 người (500k)</option>
+            <option value="800000" data-count="2" data-name="Bạn thân (2 người / chỉnh sửa 18 ảnh)">Bạn thân - 2 người (800k)</option>
+            <option value="750000" data-count="2" data-name="Cặp đôi (1 cặp / chỉnh sửa 15 ảnh)">Cặp đôi (750k)</option>
+            <option value="360000" data-count="group" data-name="Nhóm (3-5 người / chỉnh sửa 6 ảnh mỗi người)">Nhóm (360k/người)</option>
+        </select>
+
+        <div id="group-qty-container" style="display:none; margin-top: 15px;">
+            <label>Số người trong nhóm:</label>
+            <input type="number" id="group-qty" value="3" min="3" max="5" onchange="generateMakeupInputs()">
+        </div>
+
+        <div id="makeup-list-container"></div>
+
+        <label> Phí di chuyển:</label>
+        <select id="travel">
+            <option value="0" data-name="dưới 10km">Dưới 10km (Miễn phí)</option>
+            <option value="50000" data-name="trên 10km">Trên 10km (50k)</option>
+        </select>
+
+        <label> Địa điểm:</label>
+        <input type="text" id="location" placeholder="Nhập địa điểm">
+
+        <label> Thời gian:</label>
+        <input type="datetime-local" id="datetime">
+
+        <button onclick="generateInvoice()">XUẤT HÓA ĐƠN</button>
+    </div>
+
+    <div class="preview-section">
+        <div id="invoice-card" class="invoice-box">
+            <div class="header">
+                <h1 class="brand-name">@nangfotone</h1>
+                <p class="slogan">--- Bảng giá dịch vụ ---</p>
+            </div>
+
+            <div class="content">
+                <div class="item">
+                    <span><strong>Gói:</strong> <span id="res-package"></span></span>
+                    <span class="price-tag" id="res-package-price"></span>
+                </div>
+                <div class="item">
+                    <span><strong>Makeup:</strong> <span id="res-makeup"></span></span>
+                    <span class="price-tag" id="res-makeup-price"></span>
+                </div>
+                <div class="item">
+                    <span><strong>Di chuyển:</strong> <span id="res-travel"></span></span>
+                    <span class="price-tag" id="res-travel-price"></span>
+                </div>
+                <div class="item no-border"><strong>Địa điểm:</strong> <span id="res-location"></span></div>
+                <div class="item no-border"><strong>Thời gian:</strong> <span id="res-datetime"></span></div>
+                
+                <div class="total-section">
+                    <span class="total-label">TỔNG CỘNG:</span>
+                    <span class="total-amount">
+                        <span id="res-total">0</span> <span class="currency-symbol">đ</span>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p>Cảm ơn bạn đã lựa chọn nangfotone!</p>
+            </div>
+        </div>
+        <button id="download-btn" class="download-btn" style="display:none;" onclick="downloadImg()">TẢI ẢNH HÓA ĐƠN</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
