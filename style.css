@@ -6,7 +6,6 @@ body {
     display: flex;
     justify-content: center;
 }
-
 .container {
     display: flex;
     flex-wrap: wrap;
@@ -14,7 +13,6 @@ body {
     max-width: 1000px;
     width: 100%;
 }
-
 .form-section {
     flex: 1;
     background: white;
@@ -22,8 +20,13 @@ body {
     border-radius: 15px;
     min-width: 320px;
 }
-
-label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; font-size: 14px; }
+label { 
+    font-weight: bold; 
+    display: block; 
+    margin-top: 15px; 
+    margin-bottom: 5px; 
+    font-size: 14px; 
+}
 input, select {
     width: 100%;
     padding: 12px;
@@ -31,7 +34,6 @@ input, select {
     border-radius: 8px;
     box-sizing: border-box;
 }
-
 button {
     width: 100%;
     background: #000;
@@ -43,9 +45,10 @@ button {
     cursor: pointer;
     font-weight: bold;
 }
-
-.preview-section { flex: 1; min-width: 350px; }
-
+.preview-section { 
+    flex: 1; 
+    min-width: 350px; 
+}
 .invoice-box {
     font-weight: 500;
     background: white;
@@ -54,36 +57,41 @@ button {
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     text-align: left;
     color: #000;
-    width: 400px; 
+    width: 400px;
     margin: 0 auto;
     box-sizing: border-box;
 }
-
-.header { text-align: center; margin-bottom: 25px; }
-.brand-name { font-size: 30px; margin: 0; text-transform: lowercase; }
-.slogan { margin-top: 5px; font-size: 14px; letter-spacing: 2px; }
-
-.content .item { 
+.header { 
+    text-align: center; 
+    margin-bottom: 25px; 
+}
+.brand-name { 
+    font-size: 30px; 
+    margin: 0; 
+    text-transform: lowercase; 
+}
+.slogan { 
+    margin-top: 5px; 
+    font-size: 14px; 
+    letter-spacing: 2px; 
+}
+.content .item {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 12px; 
-    border-bottom: 1px dashed #ddd; 
-    padding-bottom: 5px;     
+    margin-bottom: 12px;
+    border-bottom: 1px dashed #ddd;
+    padding-bottom: 5px;
     font-size: 15px;
 }
-
-.item.no-border {
-    border-bottom: none;
+.item.no-border { 
+    border-bottom: none; 
 }
-
 .price-tag {
-    color: #000; 
+    color: #000;
     white-space: nowrap;
     margin-left: 10px;
 }
-
-
 .total-section {
     margin-top: 25px;
     padding: 5px;
@@ -94,49 +102,82 @@ button {
     justify-content: space-between;
     gap: 10px;
 }
-
-.total-info {
-    flex: 1;
+.total-info { 
+    flex: 1; 
+    text-align: center; 
+}
+.qr-container { 
+    text-align: center; 
+}
+#res-qr { 
+    width: 140px; 
+    height: 140px; 
+}
+.total-label { 
+    font-size: 18px; 
+    display: block; 
+    margin-bottom: 5px; 
+}
+.total-amount { 
+    font-size: 38px; 
+    color: #000; 
+    display: inline-block; 
+}
+.currency-symbol { 
+    text-decoration: underline; 
+    margin-left: 2px; 
+}
+.footer { 
+    margin-top: 30px; 
+    text-align: left; 
+    font-size: 11px; 
+    opacity: 0.8; 
+    line-height: 1.6; 
+}
+.download-btn { 
+    background: #27ae60; 
+}
+#image-overlay {
+    display: none;
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+    z-index: 9999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+}
+#image-overlay img {
+    max-width: 100%;
+    max-height: 70vh;
+    border: 2px solid white;
+    margin-bottom: 20px;
+}
+.overlay-instruction {
+    font-size: 16px;
+    margin-bottom: 15px;
     text-align: center;
+    font-weight: bold;
 }
-
-.qr-container {
-    text-align: center;
+.close-overlay-btn {
+    background: #e74c3c;
+    color: white;
+    padding: 10px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
 }
-
-#res-qr {
-    width: 140px;
-    height: 140px;
-}
-
 @media (max-width: 600px) {
-    .total-section {
-        flex-direction: column;
-        padding: 15px;
+    .container { 
+        flex-direction: column; 
     }
-    #res-qr {
-        width: 180px;
-        height: 180px;
+    .preview-section { 
+        min-width: 100%; 
     }
-}
-
-.total-label { font-size: 18px; display: block; margin-bottom: 5px; }
-
-.total-amount {
-    font-size: 38px;
-    color: #000;
-    display: inline-block;
-}
-
-.currency-symbol {
-    text-decoration: underline;
-    margin-left: 2px;
-}
-
-.footer { margin-top: 30px; text-align: center; font-size: 11px; opacity: 0.8; line-height: 1.6; }
-
-.download-btn { background: #27ae60; }
-
-@media (max-width: 600px) {
-    .container { flex-direction: column; }
 }

@@ -98,6 +98,7 @@ function generateInvoice() {
     const qrImg = document.getElementById('res-qr');
     const qrText = document.getElementById('qr-text');
     if (parseInt(deposit) > 0) {
+        qrImg.crossOrigin = "anonymous";
         qrImg.src = `https://img.vietqr.io/image/MB-0901341018-qr_only.png?amount=${deposit}&addInfo=Coc%20chup%20hinh%20nangfotone`; 
         qrImg.style.display = 'block';
         if(qrText) qrText.style.display = 'block';
@@ -112,22 +113,35 @@ function generateInvoice() {
 
 function downloadImg() {
     const invoice = document.getElementById('invoice-card');
-    
+    const overlay = document.getElementById('image-overlay');
+    const outputImg = document.getElementById('output-image');
+    const btn = document.getElementById('download-btn');
+
+    btn.innerText = "ĐANG TẠO ẢNH...";
+
     html2canvas(invoice, {
-        scale: 3, 
+        scale: 2,
         useCORS: true,
-        backgroundColor: "#ffffff"
+        backgroundColor: "#ffffff",
+        logging: false
     }).then(canvas => {
         const imageData = canvas.toDataURL('image/png');
-        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            const newWindow = window.open();
-            newWindow.document.write('<img src="' + imageData + '" style="width:100%; height:auto;">');
-            newWindow.document.write('<h2 style="text-align:center; font-family:sans-serif;">Nhấn giữ vào ảnh để lưu về máy</h2>');
+       
+        const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+        if (isMobile) {
+            outputImg.src = imageData;
+            overlay.style.display = 'flex';
         } else {
             const link = document.createElement('a');
             link.download = 'hoa-don-nangfotone.png';
             link.href = imageData;
             link.click();
         }
+       
+        btn.innerText = "TẢI ẢNH HÓA ĐƠN";
+    }).catch(err => {
+        console.error(err);
+        alert("Có lỗi khi tạo ảnh!");
+        btn.innerText = "TẢI ẢNH HÓA ĐƠN";
     });
 }
