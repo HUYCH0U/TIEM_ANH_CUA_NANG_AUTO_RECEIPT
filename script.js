@@ -112,14 +112,22 @@ function generateInvoice() {
 
 function downloadImg() {
     const invoice = document.getElementById('invoice-card');
-    html2canvas(invoice, { 
-        scale: 3,
+    
+    html2canvas(invoice, {
+        scale: 3, 
         useCORS: true,
         backgroundColor: "#ffffff"
     }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = `nangfotone_${Date.now()}.png`;
-        link.href = canvas.toDataURL("image/png");
-        link.click();
+        const imageData = canvas.toDataURL('image/png');
+        if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            const newWindow = window.open();
+            newWindow.document.write('<img src="' + imageData + '" style="width:100%; height:auto;">');
+            newWindow.document.write('<h2 style="text-align:center; font-family:sans-serif;">Nhấn giữ vào ảnh để lưu về máy</h2>');
+        } else {
+            const link = document.createElement('a');
+            link.download = 'hoa-don-nangfotone.png';
+            link.href = imageData;
+            link.click();
+        }
     });
 }
