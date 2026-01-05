@@ -143,8 +143,10 @@ button {
     text-align: center; 
 }
 #res-qr { 
-    width: 140px; 
-    height: 140px; 
+   max-width: 100%;   
+    height: auto;      
+    width: auto;      
+    display: block;
 }
 .total-label { 
     font-size: 18px; 
