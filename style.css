@@ -216,3 +216,9 @@ button {
         min-width: 100%; 
     }
 }
+
+#res-date,
+#res-makeup-time,
+#res-shoot-time {
+    text-align: right;
+}
