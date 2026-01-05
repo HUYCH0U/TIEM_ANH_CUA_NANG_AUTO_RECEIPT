@@ -95,17 +95,30 @@ function generateInvoice() {
     const total = pkgPrice + totalMakeupPrice + parseInt(travel.value);
     document.getElementById('res-total').innerText = total.toLocaleString('vi-VN');
 
-    const qrImg = document.getElementById('res-qr');
-    const qrText = document.getElementById('qr-text');
-    if (parseInt(deposit) > 0) {
-        qrImg.crossOrigin = "anonymous";
-        qrImg.src = `https://img.vietqr.io/image/MB-0901341018-qr_only.png?amount=${deposit}&addInfo=Coc%20chup%20hinh%20nangfotone`; 
-        qrImg.style.display = 'block';
-        if(qrText) qrText.style.display = 'block';
-    } else {
-        qrImg.style.display = 'none';
-        if(qrText) qrText.style.display = 'none';
-    }
+   const qrImg = document.getElementById('res-qr');
+const qrText = document.getElementById('qr-text');
+
+if (parseInt(deposit) > 0) {
+    qrImg.crossOrigin = "anonymous";
+    
+    const addInfo = encodeURIComponent("Coc chup hinh nangfotone");
+    
+    qrImg.src = `https://img.vietqr.io/image/MB-0901341018-qr_only.png?amount=${deposit}&addInfo=${addInfo}`;
+    
+    qrImg.style.display = 'block';
+    if (qrText) qrText.style.display = 'block';
+
+    qrImg.onload = () => {
+        console.log("QR Code loaded successfully");
+    };
+    qrImg.onerror = () => {
+        console.error("Lỗi khi tải mã QR. Kiểm tra lại kết nối hoặc API.");
+    };
+
+} else {
+    qrImg.style.display = 'none';
+    if (qrText) qrText.style.display = 'none';
+}
 
     document.getElementById('download-btn').style.display = "block";
     document.getElementById('invoice-card').scrollIntoView({ behavior: 'smooth' });
