@@ -16,44 +16,50 @@
     <div class="form-section">
         <h2>TẠO HÓA ĐƠN</h2>
         
-        <label>Gói dịch vụ:</label>
-        <select id="package" onchange="updateUI()">
-            <option value="300000" data-count="1" data-name="Không chỉnh ảnh chỉ chụp">Không chỉnh ảnh chỉ chụp (300k)</option>
-            <option value="500000" data-count="1" data-name="Cá nhân (1 người / chỉnh sửa 10 ảnh)">Cá nhân - 1 người (500k)</option>
-            <option value="800000" data-count="2" data-name="Bạn thân (2 người / chỉnh sửa 18 ảnh)">Bạn thân - 2 người (800k)</option>
-            <option value="750000" data-count="2" data-name="Cặp đôi (1 cặp / chỉnh sửa 15 ảnh)">Cặp đôi (750k)</option>
-            <option value="360000" data-count="group" data-name="Nhóm (3-5 người / chỉnh sửa 6 ảnh mỗi người)">Nhóm (360k/người)</option>
-        </select>
-
-        <div id="group-qty-container" style="display:none; margin-top: 15px;">
-            <label>Số người trong nhóm:</label>
-            <input type="number" id="group-qty" value="3" min="3" max="5" onchange="generateMakeupInputs()">
+        <div class="section-group group-package">
+            <label>Gói dịch vụ:</label>
+            <select id="package" onchange="updateUI()">
+                <option value="300000" data-count="1" data-name="Không chỉnh ảnh chỉ chụp">Không chỉnh ảnh chỉ chụp (300k)</option>
+                <option value="500000" data-count="1" data-name="Cá nhân (1 người / chỉnh sửa 10 ảnh)">Cá nhân - 1 người (500k)</option>
+                <option value="800000" data-count="2" data-name="Bạn thân (2 người / chỉnh sửa 18 ảnh)">Bạn thân - 2 người (800k)</option>
+                <option value="750000" data-count="2" data-name="Cặp đôi (1 cặp / chỉnh sửa 15 ảnh)">Cặp đôi (750k)</option>
+                <option value="360000" data-count="group" data-name="Nhóm (3-5 người / chỉnh sửa 6 ảnh mỗi người)">Nhóm (360k/người)</option>
+            </select>
+            <div id="group-qty-container" style="display:none; margin-top: 15px;">
+                <label>Số người trong nhóm:</label>
+                <input type="number" id="group-qty" value="3" min="3" max="5" onchange="generateMakeupInputs()">
+            </div>
         </div>
 
-        <div id="makeup-list-container"></div>
-
-        <label>Phí di chuyển:</label>
-        <select id="travel">
-            <option value="0" data-name="dưới 10km">Dưới 10km (Miễn phí)</option>
-            <option value="50000" data-name="trên 10km">Trên 10km (50k)</option>
-        </select>
-
-        <label>Địa điểm:</label>
-        <input type="text" id="location" placeholder="Nhập địa điểm">
-
-        <label>Ngày chụp:</label>
-        <input type="date" id="date">
-
-        <div id="makeup-time-input-group" style="display:none;">
-            <label>Giờ Makeup:</label>
-            <input type="time" id="makeup-time">
+        <div class="section-group group-makeup">
+            <div id="makeup-list-container"></div>
         </div>
 
-        <label>Giờ chụp:</label>
-        <input type="time" id="shoot-time">
+        <div class="section-group group-location">
+            <label>Phí di chuyển:</label>
+            <select id="travel">
+                <option value="0" data-name="dưới 10km">Dưới 10km (Miễn phí)</option>
+                <option value="50000" data-name="trên 10km">Trên 10km (50k)</option>
+            </select>
+            <label>Địa điểm:</label>
+            <input type="text" id="location" placeholder="Nhập địa điểm">
+        </div>
 
-        <label>Tiền cọc:</label>
-        <input type="number" id="deposit" placeholder="Nhập số tiền cọc">
+        <div class="section-group group-time">
+            <label>Ngày chụp:</label>
+            <input type="date" id="date">
+            <div id="makeup-time-input-group" style="display:none;">
+                <label>Giờ Makeup:</label>
+                <input type="time" id="makeup-time">
+            </div>
+            <label>Giờ chụp:</label>
+            <input type="time" id="shoot-time">
+        </div>
+
+        <div class="section-group group-deposit">
+            <label>Tiền cọc:</label>
+            <input type="number" id="deposit" placeholder="Nhập số tiền cọc">
+        </div>
 
         <button onclick="generateInvoice()">XUẤT HÓA ĐƠN</button>
     </div>
@@ -68,24 +74,24 @@
 
             <div class="content">
                 <div class="item">
-                    <span><strong>Gói:</strong> <span id="res-package"></span></span>
+                    <span><strong>Gói:</strong><span id="res-package"></span></span>
                     <span class="price-tag" id="res-package-price"></span>
                 </div>
                 <div class="item">
-                    <span><strong>Makeup:</strong> <span id="res-makeup"></span></span>
+                    <span><strong>Makeup:</strong><span id="res-makeup"></span></span>
                     <span class="price-tag" id="res-makeup-price"></span>
                 </div>
                 <div class="item">
-                    <span><strong>Di chuyển:</strong> <span id="res-travel"></span></span>
+                    <span><strong>Di chuyển:</strong><span id="res-travel"></span></span>
                     <span class="price-tag" id="res-travel-price"></span>
                 </div>
-                <div class="item no-border"><strong>Địa điểm:</strong> <span id="res-location"></span></div>
-                <div class="item no-border"><strong>Ngày chụp:</strong> <span id="res-date"></span></div>
-                <div id="res-makeup-time-row" class="item no-border"><strong>Giờ Makeup:</strong> <span id="res-makeup-time"></span></div>
-                <div class="item no-border"><strong>Giờ chụp:</strong> <span id="res-shoot-time"></span></div>
+                <div class="item no-border"><strong>Địa điểm:</strong><span id="res-location"></span></div>
+                <div class="item no-border"><strong>Ngày chụp:</strong><span id="res-date"></span></div>
+                <div id="res-makeup-time-row" class="item no-border"><strong>Giờ Makeup:</strong><span id="res-makeup-time"></span></div>
+                <div class="item no-border"><strong>Giờ chụp:</strong><span id="res-shoot-time"></span></div>
                 <div class="item no-border">
-                    <span><strong>Tiền cọc:</strong></span>
-                    <span  id="res-deposit"></span>
+                    <strong>Tiền cọc:</strong>
+                    <span id="res-deposit"></span>
                 </div>
                 
                 <div class="total-section">
@@ -96,7 +102,7 @@
                         </span>
                     </div>
                     <div class="qr-container">
-                        <img id="res-qr" src="" style="display: none; border: 1px solid #000; width: 100px; height: 100px;">
+                        <img id="res-qr" src="" style="display: none; border: 1px solid #000; width: 140px; height: 140px;">
                     </div>
                 </div>
             </div>

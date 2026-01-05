@@ -20,10 +20,21 @@ body {
     border-radius: 15px;
     min-width: 320px;
 }
+.section-group {
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.group-package { background-color: #eef6ff; }
+.group-makeup { background-color: #fff0f6; }
+.group-location { background-color: #f0fff4; }
+.group-time { background-color: #fff9db; }
+.group-deposit { background-color: #f8f9fa; border: 1px solid #ddd; }
+
 label { 
     font-weight: bold; 
     display: block; 
-    margin-top: 15px; 
+    margin-top: 10px; 
     margin-bottom: 5px; 
     font-size: 14px; 
 }
@@ -33,6 +44,7 @@ input, select {
     border: 1px solid #ccc;
     border-radius: 8px;
     box-sizing: border-box;
+    background-color: white;
 }
 button {
     width: 100%;
@@ -83,10 +95,9 @@ button {
     border-bottom: 1px dashed #ddd;
     padding-bottom: 5px;
     font-size: 15px;
-    gap: 10px;
 }
 .content .item strong {
-    min-width: 85px;
+    min-width: 90px;
     display: inline-block;
     flex-shrink: 0;
 }
@@ -141,7 +152,7 @@ button {
     margin-bottom: 5px; 
 }
 .total-amount { 
-    font-size: 38px; 
+    font-size: 30px; 
     color: #000; 
     display: inline-block; 
 }
