@@ -83,9 +83,24 @@ button {
     border-bottom: 1px dashed #ddd;
     padding-bottom: 5px;
     font-size: 15px;
+    line-height: 1.4;
 }
-.item.no-border { 
-    border-bottom: none; 
+.item.no-border {
+    border-bottom: none;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.item.no-border strong {
+    min-width: 85px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.item.no-border span {
+    text-align: left;
+    word-break: break-word;
+    flex: 1;
 }
 .price-tag {
     color: #000;
