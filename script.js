@@ -26,7 +26,7 @@ function generateMakeupInputs() {
             <select class="makeup-item" onchange="toggleMakeupTimeField()">
                 <option value="0" data-name="Không">Không Makeup</option>
                 <option value="250000" data-name="Cơ bản">Makeup cơ bản (250k)</option>
-                <option value="300000" data-name="Chuyên nghiệp">Makeup chuyên nghiệp (300k)</option>
+                <option value="350000" data-name="Chuyên nghiệp">Makeup chuyên nghiệp (350k)</option>
             </select>
         `;
     }
