@@ -48,6 +48,12 @@ function formatCurrency(amount) {
     return amount.toLocaleString('vi-VN') + " <span style='text-decoration: underline;'>đ</span>";
 }
 
+function addDeposit() {
+    const depositInput = document.getElementById('deposit');
+    let current = parseInt(depositInput.value) || 0;
+    depositInput.value = current + 100000;
+}
+
 function generateInvoice() {
     const pkg = document.getElementById('package');
     const travel = document.getElementById('travel');
@@ -56,6 +62,7 @@ function generateInvoice() {
     const mTime = document.getElementById('makeup-time').value;
     const sTime = document.getElementById('shoot-time').value;
     const deposit = document.getElementById('deposit').value || 0;
+    const discount = document.getElementById('discount').value || 0;
     const groupQty = parseInt(document.getElementById('group-qty').value) || 3;
 
     let pkgPrice = parseInt(pkg.value);
@@ -84,6 +91,14 @@ function generateInvoice() {
     document.getElementById('res-shoot-time').innerText = sTime || "Chưa chọn";
     document.getElementById('res-deposit').innerHTML = formatCurrency(parseInt(deposit));
     
+    const discountRow = document.getElementById('res-discount-row');
+    if (parseInt(discount) > 0) {
+        discountRow.style.display = 'flex';
+        document.getElementById('res-discount').innerHTML = "-" + formatCurrency(parseInt(discount));
+    } else {
+        discountRow.style.display = 'none';
+    }
+
     const mRow = document.getElementById('res-makeup-time-row');
     if (mTime) {
         mRow.style.display = 'flex';
@@ -92,11 +107,11 @@ function generateInvoice() {
         mRow.style.display = 'none';
     }
 
-    const total = pkgPrice + totalMakeupPrice + parseInt(travel.value);
+    const total = pkgPrice + totalMakeupPrice + parseInt(travel.value) - parseInt(discount);
     document.getElementById('res-total').innerText = total.toLocaleString('vi-VN');
 
    const qrImg = document.getElementById('res-qr');
-const qrText = document.getElementById('qr-text');
+   const qrText = document.getElementById('qr-text');
 
 if (parseInt(deposit) > 0) {
     qrImg.crossOrigin = "anonymous";

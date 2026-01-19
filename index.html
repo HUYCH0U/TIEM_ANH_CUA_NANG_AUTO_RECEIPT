@@ -58,7 +58,13 @@
 
         <div class="section-group group-deposit">
             <label>Tiền cọc:</label>
-            <input type="number" id="deposit" placeholder="Nhập số tiền cọc">
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="deposit" placeholder="Nhập số tiền cọc">
+                <button type="button" onclick="addDeposit()" style="width: 80px; margin-top: 0; padding: 0; background: #555;">100k</button>
+            </div>
+            
+            <label>Giảm giá:</label>
+            <input type="number" id="discount" placeholder="Nhập số tiền giảm">
         </div>
 
         <button onclick="generateInvoice()">XUẤT HÓA ĐƠN</button>
@@ -92,6 +98,10 @@
                 <div class="item no-border">
                     <strong>Tiền cọc:</strong>
                     <span id="res-deposit"></span>
+                </div>
+                <div id="res-discount-row" class="item no-border" style="display: none; color: black;">
+                    <strong>Giảm giá:</strong>
+                    <span id="res-discount"></span>
                 </div>
                 
                 <div class="total-section">
