@@ -62,6 +62,7 @@ function generateInvoice() {
     const mTime = document.getElementById('makeup-time').value;
     const sTime = document.getElementById('shoot-time').value;
     const deposit = document.getElementById('deposit').value || 0;
+    const surcharge = document.getElementById('surcharge').value || 0;
     const discount = document.getElementById('discount').value || 0;
     const groupQty = parseInt(document.getElementById('group-qty').value) || 3;
 
@@ -91,6 +92,14 @@ function generateInvoice() {
     document.getElementById('res-shoot-time').innerText = sTime || "Chưa chọn";
     document.getElementById('res-deposit').innerHTML = formatCurrency(parseInt(deposit));
     
+    const surchargeRow = document.getElementById('res-surcharge-row');
+    if (parseInt(surcharge) > 0) {
+        surchargeRow.style.display = 'flex';
+        document.getElementById('res-surcharge').innerHTML = formatCurrency(parseInt(surcharge));
+    } else {
+        surchargeRow.style.display = 'none';
+    }
+
     const discountRow = document.getElementById('res-discount-row');
     if (parseInt(discount) > 0) {
         discountRow.style.display = 'flex';
@@ -107,7 +116,7 @@ function generateInvoice() {
         mRow.style.display = 'none';
     }
 
-    const total = pkgPrice + totalMakeupPrice + parseInt(travel.value) - parseInt(discount);
+    const total = pkgPrice + totalMakeupPrice + parseInt(travel.value) + parseInt(surcharge) - parseInt(discount);
     document.getElementById('res-total').innerText = total.toLocaleString('vi-VN');
 
    const qrImg = document.getElementById('res-qr');
