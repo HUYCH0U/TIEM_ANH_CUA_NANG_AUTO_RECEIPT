@@ -3,7 +3,7 @@ window.onload = updateUI;
 function updateUI() {
     const pkg = document.getElementById('package');
     const groupContainer = document.getElementById('group-qty-container');
-    groupContainer.style.display = pkg.value === "360000" ? "block" : "none";
+    groupContainer.style.display = pkg.value === "380000" ? "block" : "none";
     generateMakeupInputs();
 }
 
@@ -26,7 +26,7 @@ function generateMakeupInputs() {
             <select class="makeup-item" onchange="toggleMakeupTimeField()">
                 <option value="0" data-name="Không">Không Makeup</option>
                 <option value="250000" data-name="Cơ bản">Makeup cơ bản (250k)</option>
-                <option value="350000" data-name="Chuyên nghiệp">Makeup chuyên nghiệp (350k)</option>
+                <option value="450000" data-name="Chuyên nghiệp">Makeup chuyên nghiệp (450k)</option>
             </select>
         `;
     }
@@ -68,7 +68,7 @@ function generateInvoice() {
 
     let pkgPrice = parseInt(pkg.value);
     let pkgName = pkg.options[pkg.selectedIndex].getAttribute('data-name');
-    if (pkg.value === "360000") {
+    if (pkg.value === "380000") {
         pkgPrice = pkgPrice * groupQty;
         pkgName = `Nhóm (${groupQty} người)`;
     }
